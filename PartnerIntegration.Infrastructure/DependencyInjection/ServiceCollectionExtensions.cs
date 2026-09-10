@@ -26,7 +26,6 @@ namespace PartnerIntegration.Infrastructure.DependencyInjection
             services.AddPartnerVerificationClient(configuration);
             services.AddRabbitMqPublisher(configuration);
 
-
             return services;
         }
 
