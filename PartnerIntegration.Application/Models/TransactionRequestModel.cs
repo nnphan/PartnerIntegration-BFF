@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PartnerIntegration.Application.Models
 {
-    public class TransactionRequestModel
+    public sealed record TransactionRequestModel
     {
         public string PartnerId { get; init; } = string.Empty;
         public string TransactionReference { get; init; } = string.Empty;
