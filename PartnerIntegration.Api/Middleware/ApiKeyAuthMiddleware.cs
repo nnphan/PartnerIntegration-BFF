@@ -13,10 +13,7 @@ public sealed class ApiKeyOptions
 }
 
 /// <summary>
-/// Lightweight API key authentication middleware. Requests to protected paths
-/// must present a matching X-API-KEY header, otherwise the pipeline short-circuits
-/// with 401 Unauthorized. Swagger, health checks, and the mock partner API are
-/// excluded so the mock endpoint remains freely callable and docs stay accessible.
+/// Lightweight API key authentication middleware. 
 /// </summary>
 public sealed class ApiKeyAuthMiddleware
 {

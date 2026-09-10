@@ -9,8 +9,7 @@ namespace PartnerIntegration.Infrastructure.Resilience
     public static class PartnerVerificationPolicies
     {
         /// <summary>
-        /// Retry policy: retries transient HttpRequestException / non-success status code
-        /// AND TimeoutRejectedException (thrown by the timeout policy below),
+        /// Retry policy for transient errors when calling the external partner verification service.
         /// </summary>
         public static IAsyncPolicy<HttpResponseMessage>GetRetryPolicy(ILogger logger)
         {
@@ -32,10 +31,9 @@ namespace PartnerIntegration.Infrastructure.Resilience
         }
 
         /// <summary>
-        /// Per-attempt timeout — ensures a single call to the external partner API
-        /// cannot hang indefinitely; each attempt is bounded independently of the
-        /// overall retry budget.
+        /// Timeout policy for calls to the external partner verification service. If the call takes longer than the specified timeout, it will be canceled.
         /// </summary>
+        /// <returns></returns>
         public static IAsyncPolicy<HttpResponseMessage> GetTimeoutPolicy()
         {
             return Policy.TimeoutAsync<HttpResponseMessage>(

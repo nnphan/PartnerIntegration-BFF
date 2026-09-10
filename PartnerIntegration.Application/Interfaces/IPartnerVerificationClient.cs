@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PartnerIntegration.Application.Interfaces
 {
+    /// <summary>
+    /// Defines a contract for verifying partner IDs with an external partner verification service.
+    /// </summary>
     public interface IPartnerVerificationClient
     {
         Task<PartnerVerificationResultModel> VerifyPartnerAsync(

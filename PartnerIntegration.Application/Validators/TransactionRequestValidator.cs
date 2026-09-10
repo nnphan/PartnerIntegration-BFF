@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace PartnerIntegration.Application.Validators
 {
+    /// <summary>
+    /// Validates the TransactionRequestModel using FluentValidation rules.
+    /// </summary>
     public class TransactionRequestValidator : AbstractValidator<TransactionRequestModel>
     {
+        
         public TransactionRequestValidator()
         {
             RuleFor(x => x.PartnerId)

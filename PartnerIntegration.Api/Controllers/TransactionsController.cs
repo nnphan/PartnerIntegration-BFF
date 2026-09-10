@@ -6,6 +6,7 @@ using PartnerIntegration.Application.Models;
 
 namespace PartnerIntegration.Api.Controllers
 {
+    
     [ApiController]
     [Route("api/v1/partner/transactions")]
     [Produces("application/json")]

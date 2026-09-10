@@ -27,6 +27,13 @@ namespace PartnerIntegration.Application.Services
             _messagePublisher = messagePublisher;
             _logger = logger;
         }
+
+        /// <summary>
+        /// Processes a partner transaction by validating the request, verifying the partner ID, and publishing the transaction to a message broker if verification succeeds.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<TransactionResponseModel> ProcessTransactionAsync(TransactionRequestModel request, CancellationToken cancellationToken)
         {
             // STEP 1
@@ -55,8 +62,13 @@ namespace PartnerIntegration.Application.Services
             
         }
 
-
-        //comment
+        /// <summary>
+        /// Validates the transaction request using FluentValidation. If validation fails, throws a ValidationException with detailed error messages.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
         private async Task ValidateAsync(TransactionRequestModel request, CancellationToken cancellationToken)
         {
             ValidationResult result = await _validator.ValidateAsync(request, cancellationToken);
@@ -71,6 +83,11 @@ namespace PartnerIntegration.Application.Services
             }
         }
 
+        /// <summary>
+        /// Creates a PartnerTransactionModel from the TransactionRequestModel. This encapsulates the transaction details for further processing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         private static PartnerTransactionModel CreatePartnerdTransaction(TransactionRequestModel request)
         {
             return PartnerTransactionModel.Create(
@@ -80,6 +97,7 @@ namespace PartnerIntegration.Application.Services
                 request.Currency,
                 request.Timestamp!.Value);
         }
+
 
         private static TransactionResponseModel BuildResponse(
         PartnerTransactionModel transaction,
@@ -96,6 +114,12 @@ namespace PartnerIntegration.Application.Services
             };
         }
 
+        /// <summary>
+        /// Attempts to publish the transaction message to the message broker. If publishing fails, logs the error and marks the transaction as failed to publish.
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         private async Task<bool> TryPublishAsync(
         PartnerTransactionModel transaction,
         CancellationToken cancellationToken)

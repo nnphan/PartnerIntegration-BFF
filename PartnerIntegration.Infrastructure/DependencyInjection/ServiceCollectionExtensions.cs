@@ -12,6 +12,10 @@ using PartnerIntegration.Infrastructure.Resilience;
 
 namespace PartnerIntegration.Infrastructure.DependencyInjection
 {
+    /// <summary>
+    /// Provides extension methods for registering PartnerIntegration services, clients, and messaging components into the dependency injection container.
+    /// This includes application services, partner verification client, and RabbitMQ message publisher.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddPartnerIntegrationServices(

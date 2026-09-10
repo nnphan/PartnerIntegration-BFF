@@ -6,23 +6,16 @@ using PartnerIntegration.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ---------------------------------------------------------------------------
 // Configuration
-// ---------------------------------------------------------------------------
 builder.Services.Configure<ApiKeyOptions>(options =>
 {
     options.ApiKey = builder.Configuration["ApiKey"] ?? string.Empty;
 });
 
-// ---------------------------------------------------------------------------
 // Application + Infrastructure 
-// ---------------------------------------------------------------------------
 builder.Services.AddPartnerIntegrationServices(builder.Configuration);
-//builder.Services.AddPartnerIntegrationHealthChecks();
 
-// ---------------------------------------------------------------------------
 // API layer services
-// ---------------------------------------------------------------------------
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -60,15 +53,9 @@ builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-// ---------------------------------------------------------------------------
 // Middleware pipeline
-// ---------------------------------------------------------------------------
 app.UseExceptionHandler(); // Delegates to the GlobalExceptionHandler registered via AddExceptionHandler<T>() above.
 
-// Swagger is intentionally enabled in all environments (including the Docker
-// image, which defaults to ASPNETCORE_ENVIRONMENT=Production) so the API is
-// explorable out-of-the-box for this assessment. In a real production system
-// this would typically be restricted to Development/Staging.
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
