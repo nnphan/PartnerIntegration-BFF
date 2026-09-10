@@ -1,0 +1,37 @@
+services:
+
+  partner-api:
+    container_name: partner-api
+    build:
+      context: .
+      dockerfile: PartnerIntegration.Api/Dockerfile
+
+    ports:
+      - "8082:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+      RabbitMQ__HostName: rabbitmq
+      RabbitMQ__Port: 5672
+
+      ApiKey: test-api-key
+
+    depends_on:
+      rabbitmq:
+        condition: service_started
+
+  rabbitmq:
+    container_name: rabbitmq
+
+    image: rabbitmq:3-management
+
+    hostname: rabbitmq
+
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
