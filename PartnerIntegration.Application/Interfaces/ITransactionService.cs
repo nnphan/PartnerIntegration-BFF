@@ -8,8 +8,6 @@ namespace PartnerIntegration.Application.Interfaces
     /// </summary>
     public interface ITransactionService
     {
-        Task<TransactionResponseModel> ProcessTransactionAsync(
-        TransactionRequestModel request,
-        CancellationToken cancellationToken);
+        Task<TransactionResponseModel> ProcessTransactionAsync(TransactionRequestModel request, CancellationToken cancellationToken);
     }
 }

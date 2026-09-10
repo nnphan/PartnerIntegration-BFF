@@ -12,8 +12,6 @@ namespace PartnerIntegration.Application.Interfaces
     /// </summary>
     public interface IPartnerVerificationClient
     {
-        Task<PartnerVerificationResultModel> VerifyPartnerAsync(
-       string partnerId,
-       CancellationToken cancellationToken);
+        Task<PartnerVerificationResultModel> VerifyPartnerAsync(string partnerId,CancellationToken cancellationToken);
     }
 }
