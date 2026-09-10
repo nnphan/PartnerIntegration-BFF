@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen(options =>
         Name = CommonConstants.ApiKeyHeaderName,
         Type = SecuritySchemeType.ApiKey,
         In = ParameterLocation.Header,
-        Description = "API key required for all endpoints except /mock-api and /health."
+        Description = "API key is required"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -70,5 +70,4 @@ app.MapControllers();
 
 app.Run();
 
-// Exposed for WebApplicationFactory-based integration tests.
 public partial class Program { }
