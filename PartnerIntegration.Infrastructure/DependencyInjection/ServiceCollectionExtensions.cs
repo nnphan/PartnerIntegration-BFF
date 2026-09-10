@@ -22,7 +22,6 @@ namespace PartnerIntegration.Infrastructure.DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
         {
-            //commnent 
             services.AddApplicationServices();
             services.AddPartnerVerificationClient(configuration);
             services.AddRabbitMqPublisher(configuration);
@@ -33,8 +32,7 @@ namespace PartnerIntegration.Infrastructure.DependencyInjection
 
         private static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            //comment 
-            services.AddScoped<ITransactionService, TransactionService>(); // why AddScoped
+            services.AddScoped<ITransactionService, TransactionService>();
             services.AddValidatorsFromAssemblyContaining<TransactionRequestValidator>();
 
             return services;
@@ -44,12 +42,15 @@ namespace PartnerIntegration.Infrastructure.DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
         {
-            //comment
             services.Configure<PartnerVerificationOptions>(
-            configuration.GetSection(PartnerVerificationOptions.SectionName)); // get from appsetting
+            configuration.GetSection(PartnerVerificationOptions.SectionName));
 
             services.AddScoped<IPartnerVerificationClient, PartnerVerificationClient>();
 
+
+            /// <summary>
+            /// Registers an HTTP client for the PartnerVerificationClient with retry and timeout policies.
+            /// </summary>
             services.AddHttpClient(PartnerVerificationClient.HttpClientName, (provider, client) =>
             {
                 var options = configuration
@@ -60,7 +61,7 @@ namespace PartnerIntegration.Infrastructure.DependencyInjection
                 {
                     client.BaseAddress = new Uri(options.BaseUrl);
                 }
-            })
+            })     
             .AddPolicyHandler((provider, _) =>
 
                 PartnerVerificationPolicies.GetRetryPolicy(
