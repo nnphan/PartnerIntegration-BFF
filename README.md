@@ -138,7 +138,22 @@ dotnet build
 # run RabbitMQ only, via Docker, if you don't have one locally
 docker compose up -d rabbitmq
 
-dotnet run --project src/PartnerIntegration.Api
+```
+
+# Running Application
+
+## Run API project
+
+Navigate to API project:
+
+```bash
+cd API
+```
+
+Run:
+
+```bash
+dotnet run
 ```
 
 The API listens on `http://localhost:5277`. Default API key (see
